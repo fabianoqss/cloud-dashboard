@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../components/Layout'
 import PageHeader from '../components/PageHeader'
 import StatsCard from '../components/StatsCard'
+import StorageChart from '../components/StorageChart'
 import { mockUser, mockStatsData, mockChartData } from '../data/mockData'
 import googleDrive from "../assets/icons8-google-drive.svg"
 import oneDrive from "../assets/icons8-onedrive.svg"
@@ -9,8 +10,11 @@ import StorageTotalIcon from "../assets/storage-total.svg"
 import StorageUsedIcon from "../assets/storage-used.svg"
 import FilesTotalIcon from "../assets/files-total.svg"
 import LatencyIcon from "../assets/latency.svg"
+import EyeIcon from "../assets/eye-icon.svg"
 
 const Dashboard = () => {
+  const [showChart, setShowChart] = useState(false)
+
   // Função para mapear ícones baseados no label
   const getIconForLabel = (label: string) => {
     switch (label) {
@@ -58,14 +62,31 @@ const Dashboard = () => {
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
             {/* Chart placeholder */}
             <div className='bg-[#0F172A] rounded-lg p-6 border border-[#374151]'>
-              <h3 className='text-white text-lg font-semibold mb-4'>Uso de Armazenamento</h3>
-              <div className='h-64 flex items-center justify-center'>
-                <div className='text-[#94A3B8] text-center'>
-                  <div className='text-4xl mb-2'>📊</div>
-                  <p>Gráfico de barras comparativo</p>
-                  <p className='text-sm mt-2'>Google Drive vs OneDrive</p>
-                </div>
+              <div className='flex justify-between items-center mb-4'>
+                <h3 className='text-white text-lg font-semibold'>Uso de Armazenamento</h3>
+                <button
+                  onClick={() => setShowChart(!showChart)}
+                  className='p-2 rounded-lg bg-[#1E293B] border border-[#374151] hover:bg-[#334155] transition-colors duration-200'
+                  title={showChart ? 'Ocultar gráfico' : 'Mostrar gráfico'}
+                >
+                  <img src={EyeIcon} alt="Toggle chart" className="w-5 h-5" />
+                </button>
               </div>
+              
+              {showChart ? (
+                <div className='h-auto'>
+                  <StorageChart />
+                </div>
+              ) : (
+                <div className='h-64 flex items-center justify-center'>
+                  <div className='text-[#94A3B8] text-center'>
+                    <div className='text-4xl mb-2'>📊</div>
+                    <p>Gráfico de barras comparativo</p>
+                    <p className='text-sm mt-2'>Google Drive vs OneDrive</p>
+                    <p className='text-xs mt-3 opacity-75'>Clique no ícone do olho para visualizar</p>
+                  </div>
+                </div>
+              )}
             </div>
             
             {/* Legend and stats */}
