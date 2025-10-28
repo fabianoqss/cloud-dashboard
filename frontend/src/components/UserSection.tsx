@@ -13,7 +13,7 @@ const UserSection: React.FC<UserSectionProps> = ({
   photoSrc = fotoOficial 
 }) => {
   return (
-    <section className='flex items-center gap-4 p-7 border-b border-[#374151] w-full bg-[#1E293B]'>
+    <section className='flex items-center gap-4 px-7 py-6 border-b border-[#374151] w-full bg-[#1E293B] h-[120px]'>
       <img 
         src={photoSrc} 
         alt={`Foto do ${name}`} 

@@ -14,7 +14,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   className = '' 
 }) => {
   return (
-    <div className={`p-7 border-b border-[#374151] bg-[#0F172A] sticky top-0 z-10 ${className}`}>
+    <div className={`px-7 py-6 border-b border-[#374151] bg-[#0F172A] sticky top-0 z-10 h-[120px] flex flex-col justify-center ${className}`}>
       <div className='flex items-center gap-3 mb-2'>
         {icon && (
           <div className='text-2xl'>
