@@ -1,6 +1,7 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import fotoOficial from "../assets/FotoOficial.jpeg"
+import Layout from '../components/Layout'
+import PageHeader from '../components/PageHeader'
+import { mockUser } from '../data/mockData'
 
 // Interfaces para tipagem
 interface ChartDataItem {
@@ -21,7 +22,6 @@ interface TimelineDataItem {
 }
 
 const Reports = () => {
-  const navigate = useNavigate()
 
   // Dados mockados para os gráficos
   const uploadData = [
@@ -101,73 +101,16 @@ const Reports = () => {
   }
 
   return (
-    <div className='bg-[#0F172A] h-screen grid grid-cols-[auto_1fr] items-start'>
-      {/* Sidebar */}
-      <div className='bg-[#1E293B] h-screen w-64 p-6 flex flex-col'>
-        {/* User Info */}
-        <div className='flex items-center gap-3 mb-8'>
-          <img 
-            src={fotoOficial} 
-            alt="Foto do usuário" 
-            className="w-16 h-16 rounded-full object-cover border-2 border-[#155DFC]"
-          />
-          <div>
-            <h2 className='text-white text-sm font-medium'>Fabiano Oliveira</h2>
-            <p className='text-[#94A3B8] text-xs'>fabiano@email.com</p>
-          </div>
-        </div>
-
-        {/* Navigation Menu */}
-        <nav className='flex-1'>
-          <ul className='space-y-2'>
-            {/* Dashboard */}
-            <li>
-              <button 
-                onClick={() => navigate('/dashboard')}
-                className='flex items-center gap-3 p-3 rounded-lg hover:bg-[#334155] transition-colors duration-200 group w-full text-left'
-              >
-                <svg className='w-5 h-5 text-[#94A3B8] group-hover:text-white transition-colors duration-200' fill='currentColor' viewBox='0 0 24 24'>
-                  <path d='M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z'/>
-                </svg>
-                <span className='text-[#94A3B8] text-xs group-hover:text-white transition-colors duration-200'>Dashboard</span>
-              </button>
-            </li>
-
-            {/* Gerenciador de Arquivos */}
-            <li>
-              <button 
-                onClick={() => navigate('/file-manager')}
-                className='flex items-center gap-3 p-3 rounded-lg hover:bg-[#334155] transition-colors duration-200 group w-full text-left'
-              >
-                <svg className='w-5 h-5 text-[#94A3B8] group-hover:text-white transition-colors duration-200' fill='currentColor' viewBox='0 0 24 24'>
-                  <path d='M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z'/>
-                </svg>
-                <span className='text-[#94A3B8] text-xs group-hover:text-white transition-colors duration-200'>Gerenciador de Arquivos</span>
-              </button>
-            </li>
-
-            {/* Relatórios - Active */}
-            <li>
-              <div className='flex items-center gap-3 p-3 rounded-lg bg-[#155DFC] group'>
-                <svg className='w-5 h-5 text-white' fill='currentColor' viewBox='0 0 24 24'>
-                  <path d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z'/>
-                </svg>
-                <span className='text-white text-xs font-medium'>Relatórios</span>
-              </div>
-            </li>
-          </ul>
-        </nav>
-      </div>
+    <Layout currentPage="reports" userName={mockUser.name} userEmail={mockUser.email}>
+      {/* Header */}
+      <PageHeader 
+        title="Relatórios de Desempenho e Usabilidade" 
+        subtitle="Análise detalhada do uso da nuvem"
+        icon={<span>📈</span>}
+      />
 
       {/* Main Content */}
-      <div className='flex-1 p-8 overflow-y-auto'>
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-white text-3xl font-bold mb-2 flex items-center">
-            📈 Relatórios de Desempenho e Usabilidade
-          </h1>
-        </div>
-
+      <div className='p-8'>
         {/* Período de Análise */}
         <div className="bg-[#1E293B] rounded-lg p-6 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -244,7 +187,7 @@ const Reports = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   )
 }
 

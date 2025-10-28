@@ -1,39 +1,10 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import googleDrive from "../assets/icons8-google-drive.svg"
-import oneDrive from "../assets/icons8-onedrive.svg"
-import fotoOficial from "../assets/FotoOficial.jpeg"
+import Layout from '../components/Layout'
+import PageHeader from '../components/PageHeader'
+import CloudStatus from '../components/CloudStatus'
+import { mockUser, mockFiles, mockCloudServices } from '../data/mockData'
 
 const FileManager = () => {
-  const navigate = useNavigate()
-
-  // Dados mockados dos arquivos
-  const files = [
-    {
-      id: 1,
-      name: "RelatorioTCC.pdf",
-      size: "2.1 MB",
-      modified: "07/10/2025",
-      cloud: "Google Drive",
-      cloudIcon: googleDrive
-    },
-    {
-      id: 2,
-      name: "DashboardUI.png",
-      size: "800 KB",
-      modified: "08/10/2025",
-      cloud: "OneDrive",
-      cloudIcon: oneDrive
-    },
-    {
-      id: 3,
-      name: "Apresentacao.pptx",
-      size: "3.2 MB",
-      modified: "05/10/2025",
-      cloud: "Google Drive",
-      cloudIcon: googleDrive
-    }
-  ]
 
   const handleDownload = (fileName: string) => {
     console.log(`Baixando arquivo: ${fileName}`)
@@ -52,87 +23,17 @@ const FileManager = () => {
   }
 
   return (
-    <div className='bg-[#0F172A] h-screen grid grid-cols-[auto_1fr] items-start'>
-      
-      <div className='flex flex-col border-r border-[#374151] h-full'>
-        {/* User Section */}
-        <section className='flex items-center gap-4 p-7 border-b border-[#374151] w-fit'>
-          <img src={fotoOficial} alt="Foto do Fabiano" className='w-16 h-16 rounded-full object-cover border-2 border-[#155DFC]' />
-          
-          <div>
-            <h2 className='text-white text-2xl text-inter font-bold'>Fabiano</h2>
-            <p className='text-[#94A3B8] text-sm text-inter'>fabianoquirinos@outlook.com</p>
-          </div>
-        </section>
-
-        {/* Sidebar */}
-        <nav className='mt-8 px-7'>
-          <ul className='space-y-4'>
-            {/* Dashboard */}
-            <li>
-              <button 
-                onClick={() => navigate('/dashboard')}
-                className='flex items-center gap-3 p-3 rounded-lg hover:bg-[#1E293B] transition-colors duration-200 group w-full text-left'
-              >
-                <svg className='w-5 h-5 text-[#94A3B8] group-hover:text-white transition-colors duration-200' fill='currentColor' viewBox='0 0 24 24'>
-                  <path d='M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z'/>
-                </svg>
-                <span className='text-[#94A3B8] text-xs group-hover:text-white transition-colors duration-200'>Dashboard</span>
-              </button>
-            </li>
-            
-            {/* Gerenciador de Arquivos - Active */}
-            <li>
-              <div className='flex items-center gap-3 p-3 rounded-lg bg-[#1E293B] border-l-4 border-[#155DFC]'>
-                <svg className='w-5 h-5 text-white' fill='currentColor' viewBox='0 0 24 24'>
-                  <path d='M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z'/>
-                </svg>
-                <span className='text-white text-xs font-semibold'>Gerenciador de Arquivos</span>
-              </div>
-            </li>
-            
-            {/* Relatórios */}
-            <li>
-              <a href="#" className='flex items-center gap-3 p-3 rounded-lg hover:bg-[#1E293B] transition-colors duration-200 group'>
-                <svg className='w-5 h-5 text-[#94A3B8] group-hover:text-white transition-colors duration-200' fill='currentColor' viewBox='0 0 24 24'>
-                  <path d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z'/>
-                </svg>
-                <span className='text-[#94A3B8] text-xs group-hover:text-white transition-colors duration-200'>Relatórios</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+    <Layout currentPage="file-manager" userName={mockUser.name} userEmail={mockUser.email}>
+      {/* Header */}
+      <PageHeader 
+        title="Gerenciador de Arquivos" 
+        icon={<span>📁</span>}
+      />
 
       {/* Main Content */}
-      <div className='p-8 overflow-auto'>
-        {/* Header */}
-        <div className='mb-8'>
-          <h1 className='text-white text-3xl font-bold mb-2 flex items-center gap-3'>
-            📁 Gerenciador de Arquivos
-          </h1>
-        </div>
-
+      <div className='p-8'>
         {/* Cloud Status */}
-        <div className='bg-[#1E293B] rounded-xl p-6 mb-6 border border-[#374151]'>
-          <div className='flex items-center gap-8'>
-            <div className='flex items-center gap-3'>
-              <div className='w-8 h-8 bg-white rounded-lg p-1.5 flex items-center justify-center'>
-                <img src={googleDrive} alt="Google Drive" className="w-full h-full" />
-              </div>
-              <span className='text-white font-semibold'>Google Drive</span>
-              <span className='text-green-400 text-2xl'>✅</span>
-            </div>
-            
-            <div className='flex items-center gap-3'>
-              <div className='w-8 h-8 bg-white rounded-lg p-1.5 flex items-center justify-center'>
-                <img src={oneDrive} alt="OneDrive" className="w-full h-full object-contain" />
-              </div>
-              <span className='text-white font-semibold'>OneDrive</span>
-              <span className='text-green-400 text-2xl'>✅</span>
-            </div>
-          </div>
-        </div>
+        <CloudStatus services={mockCloudServices} className="mb-6" />
 
         {/* Action Buttons */}
         <div className='flex gap-4 mb-6'>
@@ -159,48 +60,49 @@ const FileManager = () => {
 
         {/* Files Table */}
         <div className='bg-[#1E293B] rounded-xl border border-[#374151] overflow-hidden'>
+          <div className='p-6 border-b border-[#374151]'>
+            <h2 className='text-white text-xl font-semibold'>Arquivos Recentes</h2>
+          </div>
+          
           <div className='overflow-x-auto'>
             <table className='w-full'>
-              <thead className='bg-[#374151]'>
+              <thead className='bg-[#0F172A]'>
                 <tr>
-                  <th className='text-left p-4 text-white font-semibold'>📄 Nome do Arquivo</th>
-                  <th className='text-left p-4 text-white font-semibold'>📦 Tamanho</th>
-                  <th className='text-left p-4 text-white font-semibold'>📅 Modificação</th>
-                  <th className='text-left p-4 text-white font-semibold'>☁️ Nuvem</th>
-                  <th className='text-left p-4 text-white font-semibold'>⚙️ Ações</th>
+                  <th className='text-left p-4 text-[#94A3B8] font-medium'>Nome</th>
+                  <th className='text-left p-4 text-[#94A3B8] font-medium'>Tamanho</th>
+                  <th className='text-left p-4 text-[#94A3B8] font-medium'>Modificado</th>
+                  <th className='text-left p-4 text-[#94A3B8] font-medium'>Nuvem</th>
+                  <th className='text-left p-4 text-[#94A3B8] font-medium'>Ações</th>
                 </tr>
               </thead>
               <tbody>
-                {files.map((file, index) => (
-                  <tr key={file.id} className={`border-t border-[#374151] ${index % 2 === 0 ? 'bg-[#1E293B]' : 'bg-[#0F172A]'} hover:bg-[#334155] transition-colors duration-200`}>
-                    <td className='p-4 text-white'>{file.name}</td>
+                {mockFiles.map((file) => (
+                  <tr key={file.id} className='border-b border-[#374151] hover:bg-[#0F172A] transition-colors duration-200'>
+                    <td className='p-4'>
+                      <div className='flex items-center gap-3'>
+                        <div className='w-8 h-8 bg-[#155DFC] rounded-lg flex items-center justify-center'>
+                          <span className='text-white text-xs font-bold'>
+                            {file.name.split('.').pop()?.toUpperCase()}
+                          </span>
+                        </div>
+                        <span className='text-white font-medium'>{file.name}</span>
+                      </div>
+                    </td>
                     <td className='p-4 text-[#94A3B8]'>{file.size}</td>
                     <td className='p-4 text-[#94A3B8]'>{file.modified}</td>
                     <td className='p-4'>
                       <div className='flex items-center gap-2'>
-                        <div className='w-6 h-6 bg-white rounded p-1 flex items-center justify-center'>
-                          <img src={file.cloudIcon} alt={file.cloud} className="w-full h-full object-contain" />
-                        </div>
-                        <span className='text-[#94A3B8] text-sm'>{file.cloud}</span>
+                        <img src={file.cloudIcon} alt={file.cloud} className="w-5 h-5" />
+                        <span className='text-[#94A3B8]'>{file.cloud}</span>
                       </div>
                     </td>
                     <td className='p-4'>
-                      <div className='flex gap-2'>
-                        <button 
-                          onClick={() => handleDownload(file.name)}
-                          className='bg-green-600 hover:bg-green-700 text-white p-2 rounded transition-colors duration-200'
-                          title='Download'
-                        >
-                          ⬇️
-                        </button>
-                        <button 
-                          onClick={() => handleDelete(file.name)}
-                          className='bg-red-600 hover:bg-red-700 text-white p-2 rounded transition-colors duration-200'
-                          title='Deletar'
-                        >
-                          🗑️
-                        </button>
-                      </div>
+                      <button 
+                        onClick={() => handleDownload(file.name)}
+                        className='bg-[#155DFC] hover:bg-[#1E40AF] text-white px-4 py-2 rounded-lg transition-colors duration-200 text-sm font-medium'
+                      >
+                        Download
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -209,17 +111,43 @@ const FileManager = () => {
           </div>
         </div>
 
-        {/* Statistics Footer */}
-        <div className='mt-6 bg-[#1E293B] rounded-xl p-4 border border-[#374151]'>
-          <div className='flex items-center justify-center gap-8 text-[#94A3B8] text-sm'>
-            <span>📈 Tempo médio de operação:</span>
-            <span>Upload: <span className='text-blue-400 font-semibold'>1.2s</span></span>
-            <span>Download: <span className='text-green-400 font-semibold'>0.8s</span></span>
-            <span>Exclusão: <span className='text-red-400 font-semibold'>0.3s</span></span>
+        {/* Footer Stats */}
+        <div className='mt-8 grid grid-cols-3 gap-6'>
+          <div className='bg-[#1E293B] rounded-xl p-6 border border-[#374151]'>
+            <div className='flex items-center gap-3 mb-2'>
+              <div className='w-8 h-8 bg-[#155DFC] rounded-lg flex items-center justify-center'>
+                <span className='text-white text-sm'>📁</span>
+              </div>
+              <h3 className='text-white font-semibold'>Total de Arquivos</h3>
+            </div>
+            <p className='text-2xl font-bold text-white'>127</p>
+            <p className='text-[#94A3B8] text-sm'>+12 este mês</p>
+          </div>
+          
+          <div className='bg-[#1E293B] rounded-xl p-6 border border-[#374151]'>
+            <div className='flex items-center gap-3 mb-2'>
+              <div className='w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center'>
+                <span className='text-white text-sm'>💾</span>
+              </div>
+              <h3 className='text-white font-semibold'>Espaço Usado</h3>
+            </div>
+            <p className='text-2xl font-bold text-white'>2.4 GB</p>
+            <p className='text-[#94A3B8] text-sm'>de 15 GB</p>
+          </div>
+          
+          <div className='bg-[#1E293B] rounded-xl p-6 border border-[#374151]'>
+            <div className='flex items-center gap-3 mb-2'>
+              <div className='w-8 h-8 bg-yellow-500 rounded-lg flex items-center justify-center'>
+                <span className='text-white text-sm'>⚡</span>
+              </div>
+              <h3 className='text-white font-semibold'>Sincronizações</h3>
+            </div>
+            <p className='text-2xl font-bold text-white'>45</p>
+            <p className='text-[#94A3B8] text-sm'>hoje</p>
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   )
 }
 

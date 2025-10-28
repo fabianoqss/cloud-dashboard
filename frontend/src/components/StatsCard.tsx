@@ -1,4 +1,6 @@
 import React from 'react'
+import IconUp from '../assets/Icon.svg'
+import IconDown from '../assets/Icon-2.svg'
 
 interface StatsCardProps {
   value: string
@@ -32,11 +34,14 @@ const StatsCard: React.FC<StatsCardProps> = ({
         
         {/* Percentage indicator */}
         <div className='w-[61.24px] h-[17.5px] flex justify-start items-center gap-[3.5px]'>
-          <div className='w-[14px] h-[14px] relative overflow-hidden'>
-            {/* Arrow icon */}
-            <div className={`w-[3.5px] h-[3.5px] absolute left-[9.33px] top-[4.08px] border border-${isPositive ? '[#22C55E]' : '[#EF4444]'}`} />
-            <div className={`w-[11.67px] h-[5.83px] absolute left-[1.17px] top-[4.08px] border border-${isPositive ? '[#22C55E]' : '[#EF4444]'}`} />
-          </div>
+          <div className='w-[14px] h-[14px] flex items-center justify-center'>
+          {/* Arrow icon */}
+          <img 
+            src={isPositive ? IconUp : IconDown} 
+            alt={isPositive ? 'Aumento' : 'Diminuição'} 
+            className='w-[14px] h-[14px]'
+          />
+        </div>
           <div className='flex-1 h-[17.5px] flex justify-start items-start'>
             <div className={`${isPositive ? 'text-[#22C55E]' : 'text-[#EF4444]'} text-[12.25px] font-inter font-bold leading-[17.5px]`}>
               {percentage}
